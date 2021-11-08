@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*-
-from django.db import models
+"""
+Data Objects for Webhook.
+"""
+import uuid
+from django.conf import settings
+from django.db import models, transaction
 import jsonfield
 
 class WebhookMessage(models.Model):

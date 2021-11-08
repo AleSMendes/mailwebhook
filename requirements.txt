@@ -35,5 +35,6 @@ xhtml2pdf==0.2.5
 django-extensions==1.9.0
 django-jsonfield==1.4.1
 django-braces==1.14.0
-secrets==1.0.2
+python2-secrets==1.0.5
+
 

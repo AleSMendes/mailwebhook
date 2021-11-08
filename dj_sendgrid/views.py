@@ -5,7 +5,7 @@ from django.views.generic import View
 from django.conf import settings
 import signals #import inbound_parse_event, standard_webhook_event
 from braces.views import JSONResponseMixin
-#from secrets import compare_digest
+from secrets import compare_digest
 from dj_sendgrid.models import WebhookMessage
 import json
 import logging
@@ -25,14 +25,12 @@ class InboundParseWebhookView(JSONResponseMixin, View):
         return super(InboundParseWebhookView, self).dispatch(request=request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        """
-        given_token = request.headers.get("Sendgrid-Webhook-Token", "")
+        given_token = request.META.get("HTTP_SENDGRID_WEBHOOK_TOKEN", "")
         if not compare_digest(given_token, settings.SENDGRID_WEBHOOK_TOKEN):
             return HttpResponseForbidden(
                 "Incorrect token in Sendgrid-Webhook-Token header.",
                 content_type="text/plain",
             )
-        """
 
         data = request.POST
         if not len(data):
@@ -66,15 +64,13 @@ class StandardEventWebhookView(JSONResponseMixin, View):
         return super(StandardEventWebhookView, self).dispatch(request=request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        """
-        given_token = request.headers.get("Sendgrid-Webhook-Token", "")
+        
+        given_token = request.META.get("HTTP_SENDGRID_WEBHOOK_TOKEN", "")
         if not compare_digest(given_token, settings.SENDGRID_WEBHOOK_TOKEN):
             return HttpResponseForbidden(
                 "Incorrect token in Sendgrid-Webhook-Token header.",
                 content_type="text/plain",
             )
-        """
-        
 
         #
         # Send the event
