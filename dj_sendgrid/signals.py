@@ -12,6 +12,7 @@ import json
 import datetime as dt
 #from secrets import compare_digest
 from dj_sendgrid.models import WebhookMessage
+import tasks
 
 #
 # Outgoing Events
@@ -34,8 +35,4 @@ def on_standard_webhook_event(sender, data, **kwargs):
     #WebhookMessage.objects.filter(
     #    received_at__lte=timezone.now() - dt.timedelta(days=7)
     #).delete()
-    
-    WebhookMessage.objects.create(
-        received_at=timezone.now(),
-        message=data,
-    )
+    tasks.process_standard_webhook_event(sender, data)

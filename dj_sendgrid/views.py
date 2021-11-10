@@ -64,12 +64,13 @@ class StandardEventWebhookView(JSONResponseMixin, View):
         return super(StandardEventWebhookView, self).dispatch(request=request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        given_token = request.META.get("HTTP_SENDGRID_WEBHOOK_TOKEN", "") #headers
-        if not compare_digest(given_token, settings.SENDGRID_WEBHOOK_TOKEN):
-            return HttpResponseForbidden(
-                "Incorrect token in Sendgrid-Webhook-Token header.",
-                content_type="text/plain",
-            )
+        #given_token = request.META.get("HTTP_SENDGRID_WEBHOOK_TOKEN", "") #headers
+        
+        #if not compare_digest(given_token, settings.SENDGRID_WEBHOOK_TOKEN):
+        #    return HttpResponseForbidden(
+        #        "Incorrect token in Sendgrid-Webhook-Token header.",
+        #        content_type="text/plain",
+        #    )
 
         #
         # Send the event
