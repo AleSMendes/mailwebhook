@@ -7,6 +7,7 @@ from django.db.transaction import atomic, non_atomic_requests
 from django.utils import timezone
 import json
 import datetime as dt
+import time
 
 @atomic
 def process_standard_webhook_event(sender, data):
@@ -16,8 +17,10 @@ def process_standard_webhook_event(sender, data):
     )
 
     server = "sendgrid"
-
+    # register details
     for item in data:
+        timestamp = int(item.get("timestamp", round(time.mktime(dt.datetime.now().timetuple()))))
+
         WebhookMessageDetail.objects.create(
             received_at     = timezone.now(),
             event_name      = item.get("event", "not defined"),
@@ -27,5 +30,6 @@ def process_standard_webhook_event(sender, data):
             election_uuid   = item.get("election_uuid", None),
             email_from      = item.get("from", None),
             email_to        = item.get("email", None),
-            subject         = item.get("subject", None)
+            subject         = item.get("subject", None),
+            timestamp       = dt.datetime.fromtimestamp(timestamp)
         )        

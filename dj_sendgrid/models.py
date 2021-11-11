@@ -19,6 +19,7 @@ class WebhookMessage(models.Model):
 
 class WebhookMessageDetail(models.Model):
     received_at     = models.DateTimeField(help_text="When we received the event.")
+    timestamp       = models.DateTimeField(blank=True, null=True)
     event_name      = models.CharField(max_length=250, null=False, default="bounce")
     type            = models.CharField(max_length=250, null=True)
     status          = models.CharField(max_length=250, null=True)
@@ -33,3 +34,12 @@ class WebhookMessageDetail(models.Model):
         indexes = [
             models.Index(fields=["received_at", "election_uuid", "email_to"]),
         ]        
+
+    def as_dict(self):
+        return {
+            "timestamp": self.timestamp,
+            "event_name": self.event_name,
+            "election_uuid": self.election_uuid,
+            "email_to": self.email_to,
+            "server": self.server,
+        }        
