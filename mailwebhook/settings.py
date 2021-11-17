@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'dj_sendgrid',
     'dj_twilio',
+    'dj_iagentesms',
 ]
 
 MIDDLEWARE = [

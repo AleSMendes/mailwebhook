@@ -10,7 +10,7 @@ import datetime as dt
 import time
 
 @atomic
-def process_standard_webhook_event(sender, data):
+def process_standard_webhook_event(sender, election_uuid, data):
 
     TwilioWebhookMessage.objects.create(
         received_at=timezone.now(),
@@ -28,7 +28,7 @@ def process_standard_webhook_event(sender, data):
                 received_at     = timezone.now(),
                 sms_status      = item.get("SmsStatus", "not defined"),
                 sms_sid         = item.get("SmsSid", "not defined"),
-                election_uuid   = item.get("election_uuid", None),
+                election_uuid   = item.get("election_uuid", election_uuid),
                 message_sid     = item.get("MessageSid", None),
                 account_sid     = item.get("AccountSid", None),
                 to_number       = item.get("To", None),

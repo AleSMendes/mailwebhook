@@ -67,9 +67,18 @@ class TwilioStandardEventWebhookView(JSONResponseMixin, View):
     def post(self, request, *args, **kwargs):        
         #
         # Send the event
-        #        
+        #          
         data=json.loads(request.body)
-        signals.standard_webhook_event.send(sender=self, data=data)
+        election_uuid =  kwargs.get("election_uuid", None)
+
+        if type(data) == list:
+            pass
+        elif type(data) == dict:
+            data["election_uuid"] = election_uuid
+            data = [data]
+
+        
+        signals.standard_webhook_event.send(sender=self, data=data, election_uuid=election_uuid)
 
         return self.render_json_response({
             'detail': 'Standard Twilio Webhook recieved',

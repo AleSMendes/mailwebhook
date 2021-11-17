@@ -20,5 +20,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.home),
     url(r'^sendgrid/', include('dj_sendgrid.urls')),
-    url(r'^twilio/', include('dj_twilio.urls'))
+    url(r'^twilio/', include('dj_twilio.urls')),
+    url(r'^iagentesms/', include('dj_iagentesms.urls'))
 ]

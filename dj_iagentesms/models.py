@@ -7,7 +7,7 @@ from django.conf import settings
 from django.db import models, transaction
 import jsonfield
 
-class TwilioWebhookMessage(models.Model):
+class WebhookMessage(models.Model):
     received_at = models.DateTimeField(help_text="When we received the event.")
     #message = models.JSONField(default=None, null=True)
     message = jsonfield.JSONField(default=None, null=True)
@@ -17,29 +17,26 @@ class TwilioWebhookMessage(models.Model):
             models.Index(fields=["received_at"]),
         ]
 
-class TwilioWebhookMessageDetail(models.Model):
+class WebhookMessageDetail(models.Model):
     received_at     = models.DateTimeField(help_text="When we received the event.")
-    #timestamp       = models.DateTimeField(blank=True, null=True)
-    sms_status      = models.CharField(max_length=250, null=True)
-    sms_sid         = models.CharField(max_length=250, null=True)
-    account_sid     = models.CharField(max_length=250, null=True)    
-    message_sid     = models.CharField(max_length=250, null=True)    
+    codigosms       = models.CharField(max_length=250, null=True)
+    status          = models.CharField(max_length=250, null=True)
     election_uuid   = models.CharField(max_length=250, null=True)
-    to_number       = models.CharField(max_length=250, null=True)
-
+    celular         = models.CharField(max_length=250, null=True)
+    shortcode       = models.CharField(max_length=250, null=False)
+    mensagem        = models.CharField(max_length=250, null=True)
 
 
     class Meta:
         indexes = [
-            models.Index(fields=["received_at", "election_uuid", "to_number"]),
+            models.Index(fields=["celular", "election_uuid", "codigosms"]),
         ]        
 
     def as_dict(self):
         return {
-            "to_number": self.to_number,
-            "sms_status": self.sms_status,
+            "codigosms": self.codigosms,
+            "status": self.status,
             "election_uuid": self.election_uuid,
-            "sms_sid": self.sms_sid,
-            "received_at": self.received_at
-
+            "celular": self.celular,
+            "shortcode": self.shortcode,
         }        

@@ -11,7 +11,7 @@ from django.utils import timezone
 import json
 import datetime as dt
 #from secrets import compare_digest
-from dj_twilio.models import TwilioWebhookMessage
+from dj_iagentesms.models import WebhookMessage
 import tasks
 
 #
@@ -23,8 +23,8 @@ standard_webhook_event = Signal(providing_args=['data'])  # standard webhook, bo
 
 
 @receiver(standard_webhook_event)
-def on_standard_webhook_event(sender, election_uuid, data, **kwargs):
+def on_standard_webhook_event(sender, data, **kwargs):
     #WebhookMessage.objects.filter(
     #    received_at__lte=timezone.now() - dt.timedelta(days=7)
     #).delete()
-    tasks.process_standard_webhook_event(sender, election_uuid, data)
+    tasks.process_standard_webhook_event(sender, data)
