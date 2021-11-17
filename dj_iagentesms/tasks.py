@@ -16,6 +16,7 @@ def process_standard_webhook_event(sender, data):
         received_at=timezone.now(),
         message=data,
     )
+
     # register details
     for item in data:
         #timestamp = int(item.get("timestamp", round(time.mktime(dt.datetime.now().timetuple()))))

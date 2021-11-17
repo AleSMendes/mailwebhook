@@ -77,6 +77,10 @@ class StandardEventWebhookView(JSONResponseMixin, View):
         # Send the event
         #        
         data=json.loads(request.body)
+        
+        if type(data) == dict:
+            data = [data]
+
         signals.standard_webhook_event.send(sender=self, data=data)
 
         return self.render_json_response({
