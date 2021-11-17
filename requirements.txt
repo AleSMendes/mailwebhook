@@ -28,7 +28,7 @@ django_celery_beat==1.6.0
 pandas==0.24.2
 azure-storage-queue==2.1.0
 unidecode==1.2.0
-twilio==6.63.1
+twilio==6.63.2
 httplib2==0.18.0
 reportlab==3.5.59
 xhtml2pdf==0.2.5

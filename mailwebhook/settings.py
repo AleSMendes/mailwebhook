@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'dj_sendgrid',
+    'dj_twilio',
 ]
 
 MIDDLEWARE = [
@@ -138,3 +139,4 @@ STATIC_URL = '/static/'
 
 #PublicKey
 SENDGRID_WEBHOOK_TOKEN = "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEhcKJd7P0awt++vV6VlN9Pt+PEltvZESQ0dVrvB9VtQfiyDz27bqUnDHzs1n/zUxjrjb251C14Bk4UrneIoIkKg=="
+TWILIO_AUTH_TOKEN  = ""

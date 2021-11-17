@@ -84,6 +84,37 @@ class StandardEventWebhookView(JSONResponseMixin, View):
         })
 
 
+class TwilioStandardEventWebhookView(JSONResponseMixin, View):
+    """
+    Handle the Twilio callback
+    """
+    http_method_names = [u'post',]
+
+    json_dumps_kwargs = {'indent': 3}
+
+    def dispatch(self, request, *args, **kwargs):
+        logger.info('Recieved standard Twilio webhook')
+        return super(StandardEventWebhookView, self).dispatch(request=request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):        
+        #given_token = request.META.get("HTTP_SENDGRID_WEBHOOK_TOKEN", "") #headers
+        
+        #if not compare_digest(given_token, settings.SENDGRID_WEBHOOK_TOKEN):
+        #    return HttpResponseForbidden(
+        #        "Incorrect token in Sendgrid-Webhook-Token header.",
+        #        content_type="text/plain",
+        #    )
+
+        #
+        # Send the event
+        #        
+        data=json.loads(request.body)
+        signals.standard_webhook_event.send(sender=self, data=data)
+
+        return self.render_json_response({
+            'detail': 'Standard Twilio Webhook recieved',
+        })
+
 
 class DataWebhookView(JSONResponseMixin, View):
     """

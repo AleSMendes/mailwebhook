@@ -19,5 +19,6 @@ import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.home),
-    url(r'^sendgrid/', include('dj_sendgrid.urls'))
+    url(r'^sendgrid/', include('dj_sendgrid.urls')),
+    url(r'^twilio/', include('dj_twilio.urls'))
 ]
