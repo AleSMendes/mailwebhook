@@ -52,7 +52,8 @@ class DataWebhookView(JSONResponseMixin, View):
     def post(self, request, *args, **kwargs):  
         data  = json.loads(request.body)
         uuids = data.get("election_uuid", [])
-        qs  = WebhookMessageDetail.objects.filter(election_uuid__in = uuids)
+        #qs  = WebhookMessageDetail.objects.filter(election_uuid__in = uuids)
+        qs  = WebhookMessageDetail.objects.all()
         #data = serializers.serialize("json", qs, fields = ("email_to", "election_uuid", "event_name", "timestamp"))
         #data = json.dumps(list(qs.values()))  
         dictionaries = [ obj.as_dict() for obj in qs ]

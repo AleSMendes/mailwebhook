@@ -18,7 +18,9 @@ def process_standard_webhook_event(sender, data):
     )
     # register details
     for item in data:
-        timestamp = int(item.get("timestamp", round(time.mktime(dt.datetime.now().timetuple()))))
+        #timestamp = int(item.get("timestamp", round(time.mktime(dt.datetime.now().timetuple()))))
+        timestamp = item.get("data", None)
+        
 
         #if item.get("election_uuid", None):
         # somente persistir registro que possuam o identificador da urna (integraçao com Helios Voting)
@@ -29,5 +31,6 @@ def process_standard_webhook_event(sender, data):
                 celular         = item.get("celular", None),
                 shortcode       = item.get("shortcode", None),
                 codigosms       = item.get("codigosms", None),
+                timestamp       = timestamp,
                 #mensagem         = item.get("mensagem", None),
             )       

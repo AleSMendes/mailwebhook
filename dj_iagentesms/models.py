@@ -19,6 +19,7 @@ class WebhookMessage(models.Model):
 
 class WebhookMessageDetail(models.Model):
     received_at     = models.DateTimeField(help_text="When we received the event.")
+    timestamp       = models.DateTimeField(blank=True, null=True)
     codigosms       = models.CharField(max_length=250, null=True)
     status          = models.CharField(max_length=250, null=True)
     election_uuid   = models.CharField(max_length=250, null=True)
