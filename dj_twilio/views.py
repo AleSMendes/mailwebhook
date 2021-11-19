@@ -36,11 +36,11 @@ def validate_twilio_request(f):
         validator = RequestValidator(settings.TWILIO_AUTH_TOKEN)
 
         # Validate the request using its URL, POST data,
-        # and X-TWILIO-SIGNATURE header
+        # and HTTP_X_TWILIO_SIGNATURE header
         request_valid = validator.validate(
             request.build_absolute_uri(),
             request.POST,
-            request.META.get('HTTP_X_TWILIO_SIGNATURE', ''))
+            request.META.get('X-Twilio-Signature', ''))
 
         # Continue processing the request if it's valid, return a 403 error if
         # it's not
