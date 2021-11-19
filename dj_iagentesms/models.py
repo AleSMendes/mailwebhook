@@ -24,7 +24,7 @@ class WebhookMessageDetail(models.Model):
     status          = models.CharField(max_length=250, null=True)
     election_uuid   = models.CharField(max_length=250, null=True)
     celular         = models.CharField(max_length=250, null=True)
-    shortcode       = models.CharField(max_length=250, null=False)
+    shortcode       = models.CharField(max_length=250, null=True)
     mensagem        = models.CharField(max_length=250, null=True)
 
 

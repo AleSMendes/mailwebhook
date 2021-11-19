@@ -9,9 +9,9 @@ import json
 import datetime as dt
 import time
 
+
 @atomic
 def process_standard_webhook_event(sender, data):
-
     WebhookMessage.objects.create(
         received_at=timezone.now(),
         message=data,
@@ -21,6 +21,10 @@ def process_standard_webhook_event(sender, data):
     for item in data:
         #timestamp = int(item.get("timestamp", round(time.mktime(dt.datetime.now().timetuple()))))
         timestamp = item.get("data", None)
+        if timestamp:
+            timestamp = dt.datetime.strptime(timestamp, '%d/%m/%Y %H:%M:%S')
+        else:
+            timestamp = timezone.now()
         
 
         #if item.get("election_uuid", None):
