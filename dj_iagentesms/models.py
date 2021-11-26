@@ -40,4 +40,5 @@ class WebhookMessageDetail(models.Model):
             "election_uuid": self.election_uuid,
             "celular": self.celular,
             "shortcode": self.shortcode,
+            "data": self.timestamp
         }        
