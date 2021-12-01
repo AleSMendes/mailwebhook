@@ -30,7 +30,7 @@ def process_standard_webhook_event(sender, data):
                 server          = server,
                 type            = item.get("type", "not defined"),
                 status          = item.get("status", "not defined"),
-                election_uuid   = item.get("election_uuid", None),
+                election_uuid   = item.get("election_uuid", item.get("ElectionId", None)),
                 email_from      = item.get("from", None),
                 email_to        = item.get("email", None),
                 subject         = item.get("subject", None),
